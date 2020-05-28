@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GRIDCITY
+namespace MyCity
 {
     public class RouteTile : MonoBehaviour
     {
@@ -17,9 +17,9 @@ namespace GRIDCITY
         private Transform slopeUpPrefab;
         private Transform slopeDownPrefab;
 
-        private int maxLevel = 100;
-        private GridCityManager cityManager;
-        private GameController gameController;
+        private int maxLevel = 30;
+        private MyCityManager cityManager;
+        private SpaceController gameController;
 
         private int inc_x, inc_y, inc_z;
         //helper flags for edge cases
@@ -46,18 +46,18 @@ namespace GRIDCITY
             {
                 case 0:
                     inc_x = 0;
-                    inc_z = -1;
+                    inc_z = -5;
                     break;
                 case 90:
-                    inc_x = -1;
+                    inc_x = -5;
                     inc_z = 0;
                     break;
                 case 180:
                     inc_x = 0;
-                    inc_z = 1;
+                    inc_z = 5;
                     break;
                 case 270:
-                    inc_x = 1;
+                    inc_x = 5;
                     inc_z = 0;
                     break;
                 default:
@@ -76,51 +76,11 @@ namespace GRIDCITY
         void Awake()
         {
             inc_x = inc_y = inc_z = 0;
-            cityManager = GridCityManager.Instance;
-            gameController = GameController.Instance;
+            cityManager = MyCityManager.Instance;
+            gameController = SpaceController.Instance;
         }
 
-        private void Update()
-        {
-            if ((cityManager.navMeshReady) && (mySlope == 0) && gameController.gameState!=GameController.GameState.Game)
-            {
-                int rando = Random.Range(0, 1000);
-                if (rando < 5)
-                {
-                    Instantiate(cityManager.agentPrefab, this.transform);
-                }
-            }
-
-            if (gameController.gameState==GameController.GameState.Game)
-            {
-                if ((cityManager.navMeshReady)&&(GameController.baddiesNeeded)&&(!baddieSpawned)&&(mySlope==0))
-                {
-                    if ((transform.position-cityManager.startLocation.position).magnitude>5f)
-                    {
-                        int rando = Random.Range(0, 1000);
-                        if (rando < 5)
-                        {
-                            Instantiate(gameController.baddiePrefab, transform.position, Quaternion.identity, gameController.dummyPivot);
-                            baddieSpawned = true;
-                        }
-                    }
-                }
-
-                if ((GameController.patrolTargetsNeeded) && (!targetSpawned) && (mySlope == 0))
-                {
-                    if ((transform.position - cityManager.startLocation.position).magnitude > 3f)
-                    {
-                        int rando = Random.Range(0, 1000);
-                        if (rando < 5)
-                        {
-                            Transform target = Instantiate(gameController.targetPrefab, transform.position, Quaternion.identity, gameController.dummyPivot);
-                            gameController.RegisterPatrolTarget(target);
-                            targetSpawned = true;
-                        }
-                    }
-                }
-            }
-        }
+      
 
         // Use this for external initialization
         void Start()
@@ -132,7 +92,7 @@ namespace GRIDCITY
 
             int z = Mathf.RoundToInt(transform.position.z + 20.0f);
 
-            cityManager = GridCityManager.Instance;
+            cityManager = MyCityManager.Instance;
             tilePrefab = cityManager.tilePrefab;
             slopeUpPrefab = cityManager.slopeUpPrefab;
             slopeDownPrefab = cityManager.slopeDownPrefab;
@@ -164,10 +124,7 @@ namespace GRIDCITY
             }
             else if (recursionCount < maxLevel)
             {
-                if (mySlope==0)
-                {
-                    Instantiate(gameController.pointPrefab, transform.position, Quaternion.identity, gameController.dummyPivot);
-                }
+                
                 int corrector = (maxLevel-recursionCount) / 15;  //biasing randomization in the beginning to avoid extinction
                 int random = Random.Range(0, 100);
                 if (random<(80+corrector))                //move forward (most likely):

@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GridCity.unity
     guid: f6920930006cc3341a05602a8be5b799
+  - enabled: 1
+    path: Assets/Scenes 1/WinScene.unity
+    guid: 23f7b6e3863424f4fa525db3dc3c3048
   m_configObjects: {}

@@ -20,11 +20,13 @@ public class CheckArrivalTask : BTNode
 
         if(distance < 100f)
         {
+            Debug.Log("arrived");
             return BTNodeStates.SUCCESS;
 
         }
         else
         {
+            Debug.Log("did not arrive, fail");
             return BTNodeStates.FAILURE;
         }
     }

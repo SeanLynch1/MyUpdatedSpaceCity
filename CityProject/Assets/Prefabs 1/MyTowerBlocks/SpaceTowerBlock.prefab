@@ -107,6 +107,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7992b254a298bea46a2f15f86af98eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myProfile: {fileID: 11400000, guid: 87ae1c9e30494de4286d03d35e33cdac, type: 2}
+  myProfile: {fileID: 0}
   basePrefab: {fileID: 5422454052024788323}
   recursionLevel: 0

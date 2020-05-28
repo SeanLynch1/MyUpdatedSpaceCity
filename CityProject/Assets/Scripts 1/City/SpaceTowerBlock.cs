@@ -55,7 +55,7 @@ namespace MyCity
 
             if (recursionLevel == 0)
             {
-                //if a slot in the 280,280,280 array is being used then..
+               
                 if (!cityManager.CheckSlot(x, y, z))
                 {
                     int meshNum = myProfile.groundBlocks.Length;
@@ -66,6 +66,7 @@ namespace MyCity
                 }
                 else
                 {
+                    //if a slot in the 280,280,280 array is being used then..
                     Destroy(gameObject);
                 }
             }
@@ -102,6 +103,7 @@ namespace MyCity
                 }
             }
         }
+       
         #endregion
         #endregion
     }

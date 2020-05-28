@@ -69,12 +69,15 @@ namespace MyCity
             //Randomize game environment for a new game:
             RandomizeStage();
             RandomizeTowerFlavours();
+          
             yield return new WaitForSeconds(2f);
             cityManager.BuildTowers(Random.Range(25, 45));
             yield return new WaitForSeconds(2f);
-           
+            cityManager.BuildRoads();
+            
+          
 
-           
+
         }
 
 
